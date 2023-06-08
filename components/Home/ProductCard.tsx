@@ -5,7 +5,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 interface ProductCardProps {
   data: {
-    _id: string; // Update the property name for the unique identifier
+    _id: string; 
     imageURL: string;
     name: string;
     price: number;

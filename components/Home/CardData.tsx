@@ -28,7 +28,7 @@ export default function CardData({ cartItems, setCartItems }: CardDataProps) {
   const shippingcost = 0;
 
   const currentDate = new Date();
-  const dayOfWeek = currentDate.getDay(); // Sunday: 0, Monday: 1, ..., Saturday: 6
+  const dayOfWeek = currentDate.getDay(); 
   
   let deliveryDate = new Date(currentDate);
   
@@ -45,7 +45,7 @@ export default function CardData({ cartItems, setCartItems }: CardDataProps) {
   const deliveryMonth = deliveryDate.getMonth() + 1; //january is 0
   const deliveryYear = deliveryDate.getFullYear();
   
-  // Format the delivery date as per your requirement
+  
   const formattedDate = `${deliveryDay}/${deliveryMonth}/${deliveryYear}`;
   
 
@@ -88,7 +88,7 @@ export default function CardData({ cartItems, setCartItems }: CardDataProps) {
   // Calculate the total price of all items in the cart
   useEffect(() => {
     calculateTotalPrice();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  
   }, [cartItems]);
 
   // Calculate the total price of all items in the cart
@@ -100,7 +100,7 @@ export default function CardData({ cartItems, setCartItems }: CardDataProps) {
       totalPrice += item.price * item.quantity;
     });
     const shippingCost = totalPrice * 0.1;
-    const formattedTotalPrice = totalPrice.toFixed(2); // Format to two decimal places
+    const formattedTotalPrice = totalPrice.toFixed(2); 
     setTotalCost(parseFloat(formattedTotalPrice));
 
   };
@@ -191,7 +191,7 @@ export default function CardData({ cartItems, setCartItems }: CardDataProps) {
         </div>
         <div className="flex justify-between bg-warning">
           <p className="w-fit">Shipping Cost</p>{}
-          <p>${cartItems?.length > 0 ? (totalcost * 0.1).toFixed(2) : 0}</p> {/* Calculate and display the shipping cost */}
+          <p>${cartItems?.length > 0 ? (totalcost * 0.1).toFixed(2) : 0}</p>
           
         </div>
         <div className="flex justify-between ">
