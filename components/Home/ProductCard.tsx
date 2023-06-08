@@ -28,13 +28,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ data, addToCart }) => {
 
       <div className="flex flex-col gap-1 col-span-2">
         <p className="lg:text-xl text-lg font-bold">{data?.name}</p>
-        <p className="lg:text-xl text-lg font-bold text-rose-400 mt-1">
+        <p className="lg:text-xl text-lg font-bold text-secundary mt-1">
           ${data?.price}
         </p>
       </div>
       <div className="flex justify-end ">
         <IconButton
-          className="w-8 h-8 lg:w-16 lg:h-16 bg-orange-400 hover:bg-orange-500 duration-300"
+          className="w-8 h-8 lg:w-16 lg:h-16 bg-primary hover:bg-orange-500 duration-300"
           onClick={() => addToCart(data._id, data?.name, data?.price,data?.imageURL)}
         >
           <AddIcon className="lg:text-4xl text-white" />

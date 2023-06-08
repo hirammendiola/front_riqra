@@ -24,8 +24,8 @@ interface CardDataProps {
 
 export default function CardData({ cartItems, setCartItems }: CardDataProps) {
 
-  const vat = 51.0;
-  const shippingcost = 20;
+  const vat = .18;
+  const shippingcost = 0;
 
   const currentDate = new Date();
   const dayOfWeek = currentDate.getDay(); // Sunday: 0, Monday: 1, ..., Saturday: 6
@@ -35,7 +35,7 @@ export default function CardData({ cartItems, setCartItems }: CardDataProps) {
   // Check if it's Friday, Saturday, or Sunday
   if (dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0) {
     // Add the remaining days until Monday
-    deliveryDate.setDate(currentDate.getDate() + (8 - dayOfWeek) + 1);
+    deliveryDate.setDate(currentDate.getDate() + (8 - dayOfWeek));
   } else {
     // Add 1 day to the current date
     deliveryDate.setDate(currentDate.getDate() + 1);
@@ -99,9 +99,10 @@ export default function CardData({ cartItems, setCartItems }: CardDataProps) {
     cartItems.forEach((item) => {
       totalPrice += item.price * item.quantity;
     });
-
+    const shippingCost = totalPrice * 0.1;
     const formattedTotalPrice = totalPrice.toFixed(2); // Format to two decimal places
     setTotalCost(parseFloat(formattedTotalPrice));
+
   };
 
 
@@ -131,13 +132,13 @@ export default function CardData({ cartItems, setCartItems }: CardDataProps) {
 
                 <div className="col-span-2 flex flex-col gap-1">
                   <p className="lg:text-xl text-sm md:text-lg font-bold break-all ">{data?.name}</p>
-                  <p className="lg:text-xl text-lg font-bold text-rose-400 mt-1">
+                  <p className="lg:text-xl text-lg font-bold text-secundary mt-1">
                     ${data?.price}
                   </p>
                 </div>
                <div className="flex justify-end">
                <div className="flex gap-2 md:flex-row flex-col items-end md:items-center">
-                  <div className="flex flex-row items-center gap-2 bg-orange-400 p-1 md:p-3">
+                  <div className="flex flex-row items-center gap-2 bg-primary p-1 md:p-3">
                     <RemoveIcon
                       className="cursor-pointer text-white md:text-base text-sm"
                       onClick={() => {
@@ -188,17 +189,18 @@ export default function CardData({ cartItems, setCartItems }: CardDataProps) {
         <div className="flex justify-between ">
           <p className="w-fit">Products</p> <p>${totalcost}</p>
         </div>
-        <div className="flex justify-between bg-yellow-500">
-          <p className="w-fit">Shipping Cost</p>{" "}
-          <p>${cartItems?.length > 0 ? shippingcost : 0}</p>
+        <div className="flex justify-between bg-warning">
+          <p className="w-fit">Shipping Cost</p>{}
+          <p>${cartItems?.length > 0 ? (totalcost * 0.1).toFixed(2) : 0}</p> {/* Calculate and display the shipping cost */}
+          
         </div>
         <div className="flex justify-between ">
-          <p className="w-fit">Taxes</p> <p>${cartItems?.length > 0 ? vat : 0}</p>
+          <p className="w-fit">Taxes</p> <p>${cartItems?.length > 0 ? (totalcost*vat).toFixed(2) : 0}</p>
         </div>
         <div className="flex justify-between ">
           <p className="w-fit font-bold">Total</p>{" "}
           <p className="text-rose-600">
-            ${cartItems?.length > 0 ? (shippingcost + vat + totalcost).toFixed(2) : 0}
+          ${cartItems?.length > 0 ? (totalcost + (totalcost * 0.1)).toFixed(2) : 0}
           </p>
         </div>
       </div>
@@ -209,7 +211,7 @@ export default function CardData({ cartItems, setCartItems }: CardDataProps) {
             <Button
               disabled
               variant="contained"
-              className="text-black bg-orange-400 hover:bg-orange-600 capitalize w-full lg:py-3 lg:text-xl"
+              className="text-black bg-primary hover:bg-orange-600 capitalize w-full lg:py-3 lg:text-xl"
             >
               Place&nbsp;Order
             </Button>
@@ -218,7 +220,7 @@ export default function CardData({ cartItems, setCartItems }: CardDataProps) {
           <Link href="/confirmation">
             <Button
               variant="contained"
-              className="text-black bg-orange-400 hover:bg-orange-600 capitalize w-full lg:py-3 lg:text-xl"
+              className="text-black bg-primary hover:bg-orange-600 capitalize w-full lg:py-3 lg:text-xl"
             >
               Place&nbsp;Order
             </Button>

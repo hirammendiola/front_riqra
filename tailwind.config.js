@@ -10,9 +10,9 @@ module.exports = {
         sans: ["Work Sans", "sans-serif"],
       },
       colors: {
-        primary: "#876B00",
-        primary2: "#1C1C1C",
-        primary3: "#B6871B",
+        primary: "#FF8000",
+        secundary: "#FF2D55",
+        warning: "#FFE200",
         primary4: "#C3C2C2",
         footerbg:"#1C1C1C",
       },
