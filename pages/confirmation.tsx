@@ -1,10 +1,31 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import Image from 'next/image';
+import Image from "next/image";
 
+export default function Confirmation() {
+  const [orderNumber, setOrderNumber] = useState("");
 
-export default function confirmation() {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://18.228.225.59:3000/orders/");
+        const data = await response.json();
+        const formattedOrderNumber = formatOrderNumber(data.orderNumber);
+        setOrderNumber(formattedOrderNumber);
+      } catch (error) {
+        console.error("Error fetching order number:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const formatOrderNumber = (orderNumber: number): string => {
+    const formattedNumber = `P${orderNumber.toString().padStart(4, "0")}`;
+    return formattedNumber;
+  };
+
   return (
     <>
       <Head>
@@ -13,20 +34,18 @@ export default function confirmation() {
 
       <div className="bg-gray-100">
         <div className="container-sk  justify-center items-center min-h-screen flex flex-col gap-4">
-        <h1 className="font-bold lg:text-4xl md:text-3xl text-2xl">Thank you</h1>
-        <p className="text-gray-700">Your order P0001 has been placed</p>
-        <Link href="/" className="text-blue-500">Continue shopping</Link>
-        <Image
-      placeholder="blur"
-      src="/success.png"
-      width={500}
-      height={500}
-      className="p-5"
-      alt="Picture of the author"
-      blurDataURL="/blur.png"
-    />
-
-
+          <h1 className="font-bold lg:text-4xl md:text-3xl text-2xl">Thank you</h1>
+          <p className="text-gray-700">Your order {orderNumber} has been placed</p>
+          <Link href="/" className="text-blue-500">Continue shopping</Link>
+          <Image
+            placeholder="blur"
+            src="/success.png"
+            width={500}
+            height={500}
+            className="p-5"
+            alt="Picture of the author"
+            blurDataURL="/blur.png"
+          />
         </div>
       </div>
     </>
