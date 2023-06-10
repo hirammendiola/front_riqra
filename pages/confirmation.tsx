@@ -3,6 +3,10 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 
+interface OrderData {
+  orderNumber: string;
+}
+
 export default function Confirmation() {
   const [orderNumber, setOrderNumber] = useState("");
 
@@ -10,9 +14,8 @@ export default function Confirmation() {
     const fetchData = async () => {
       try {
         const response = await fetch("http://18.228.225.59:3000/orders/");
-        const data = await response.json();
-        const formattedOrderNumber = formatOrderNumber(data.orderNumber);
-        setOrderNumber(formattedOrderNumber);
+        const data: OrderData | undefined = await response.json();
+        setOrderNumber(data?.orderNumber || "");
       } catch (error) {
         console.error("Error fetching order number:", error);
       }
@@ -20,12 +23,7 @@ export default function Confirmation() {
 
     fetchData();
   }, []);
-
-  const formatOrderNumber = (orderNumber: number): string => {
-    const formattedNumber = `P${orderNumber.toString().padStart(4, "0")}`;
-    return formattedNumber;
-  };
-
+console.log(orderNumber);
   return (
     <>
       <Head>

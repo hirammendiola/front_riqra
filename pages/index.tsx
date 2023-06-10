@@ -6,10 +6,11 @@ import CardData from "../components/Home/CardData";
 import ProductCard from "../components/Home/ProductCard";
 
 interface Product {
+  quantity: number;
   _id: string;
   name: string;
   price: number;
-  imageURL: string; // Add the 'imageURL' property here
+  imageURL: string;
 }
 interface CartItem extends Product {
   quantity: number;
@@ -177,12 +178,16 @@ const [refresh, setRefresh] = useState(false);
                 {searchResults?.slice(0, visibleItems).map((data) => (
                   <div className="" key={data._id}>
                     <ProductCard
-                      data={data}
+                       data={{
+                        ...data,
+                        quantity: data.quantity ?? 0, // Asegúrate de proporcionar la propiedad 'quantity' o establecer un valor predeterminado
+                      }}
                       addToCart={addToCart}
                       cartItems={cartItems}
                       refresh={setRefresh}
                       increaseQuantity={increaseQuantity}
                       decreaseQuantity={decreaseQuantity}
+                      
                     />
                   </div>
                 ))}
